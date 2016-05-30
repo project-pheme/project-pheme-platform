@@ -792,7 +792,10 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 	{
 
 		$post = $entity->asArray();
-		$post['created'] = time();
+		
+		if (!isset($post['created']) || is_null($post['created'])) {
+			$post['created'] = time();
+		}
 
 		// Remove attribute values and tags
 		unset($post['values'], $post['tags'], $post['completed_stages']);
