@@ -130,6 +130,11 @@ Ushahidi::init();
 include Kohana::find_file('routes', 'default');
 
 /**
+ * Pheme routes
+ */
+include Kohana::find_file('routes', 'pheme');
+
+/**
  * Include the routes for the current environment.
  */
 if ($routes = Kohana::find_file('routes', Kohana::$environment))
