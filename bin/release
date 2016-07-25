@@ -46,7 +46,6 @@ tar -cf $TARFILE \
     --exclude 'application/logs' \
     --exclude 'application/media/uploads' \
     --exclude 'application/config/environments' \
-    --exclude 'application/routes' \
     --exclude '.htaccess' \
     --exclude 'build' \
     --exclude 'application/tests' \
@@ -69,8 +68,7 @@ tar -rf $TARFILE \
     ushahidi-platform-bundle-${VERSION}/application/cache/.gitignore \
     ushahidi-platform-bundle-${VERSION}/application/logs/.gitignore \
     ushahidi-platform-bundle-${VERSION}/application/media/uploads/.gitignore \
-    ushahidi-platform-bundle-${VERSION}/application/config/environments/development/.gitignore \
-    ushahidi-platform-bundle-${VERSION}/application/routes/default.php
+    ushahidi-platform-bundle-${VERSION}/application/config/environments/development/.gitignore
 
 gzip -f $TARFILE
 echo "Release tarball: ${TARFILE}.gz"
