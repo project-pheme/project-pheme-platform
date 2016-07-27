@@ -13,16 +13,15 @@ $apiBase = 'api/v' . $apiVersion . '/';
 /**
  * Theme API SubRoute
  */
-// Route::set('pheme-themes', $apiBase . 'pheme/themes/<id>',
-// 	array(
-// 		'id' => '[1-9a-zA-Z_\-]+'
-// 	))
-// 	->defaults(array(
-// 		'action'     => 'index',
-// 		'controller' => 'Theme',
-// 		'directory'  => 'Api/Pheme'
-// 	));
-
+Route::set('pheme-themes', $apiBase . 'pheme/themes/<id>',
+	array(
+		'id' => '[0-9]+'
+	))
+	->defaults(array(
+		'action'     => 'index',
+		'controller' => 'Theme',
+		'directory'  => 'Api/Pheme'
+	));
 
 /**
  * Event API SubRoute

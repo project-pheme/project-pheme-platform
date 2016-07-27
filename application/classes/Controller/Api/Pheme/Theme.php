@@ -9,7 +9,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero General Public License Version 3 (AGPL3)
  */
 
-class Controller_Api_Pheme_Event extends Ushahidi_Rest {
+class Controller_Api_Pheme_Theme extends Ushahidi_Rest {
 
 	protected $pheme_config;
 
@@ -21,7 +21,6 @@ class Controller_Api_Pheme_Event extends Ushahidi_Rest {
 	protected $_action_map = array
 	(
 		Http_Request::GET     => 'get',
-		Http_Request::POST    => 'post',
 	);
 
 	protected function _scope()
@@ -29,19 +28,25 @@ class Controller_Api_Pheme_Event extends Ushahidi_Rest {
 		return 'posts';		# TODO: consider a specific scope for Pheme
 	}
 
-	public function action_get_index_collection()
+	/**
+	 * Retrieve A Theme
+	 *
+	 * GET /api/v3/pheme/themes/:id
+	 *
+	 * @return void
+	 */
+	public function action_get_index()
 	{
-		$req_uri = $this->pheme_config['data-interface']['url'] . '/api/event';
+		$the_id = $this->request->param('id');
+
+		$req_uri = $this->pheme_config['data-interface']['url'] . '/api/stories/' . $the_id;
 
 		$response = \Httpful\Request::get($req_uri)
 			->expectsJson()
 			->send();
 
 		if ($response->body->status == "success") {
-			$this->_response_payload = [
-				'count' => count($response->body->data),
-				'results' => $response->body->data
-			];
+			$this->_response_payload = $response->body->data;
 		/* TODO: I bet there's more semantic error reporting than this */
 		} else if ($response->body->status == "fail") {
 			$this->_response_payload = [
@@ -54,23 +59,6 @@ class Controller_Api_Pheme_Event extends Ushahidi_Rest {
 				'message' => $response->body->message
 			];
 		}
-
-		$this->_prepare_response();
-	}
-
-	public function action_post_index_collection()
-	{
-		$req_uri = $this->pheme_config['data-interface']['url'] . '/api/event';
-
-		$response = \Httpful\Request::post($req_uri)
-			->sendsJson()
-			->body($this->_payload())
-			->expectsJson()
-			->send();
-		$this->_response_payload = [
-			'success' => TRUE,
-			'message' => "Event created"
-		];
 
 		$this->_prepare_response();
 	}
