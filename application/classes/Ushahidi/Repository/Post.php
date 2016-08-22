@@ -453,9 +453,16 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			{
 				$attribute = $this->form_attribute_repo->getByKey($key);
 
-				$sub = $this->post_value_factory
-					->getRepo($attribute->type)
-					->getValueQuery($attribute->id, $value);
+				if ( substr($value, 0, 1 ) === "{" ) {
+					$value_q = json_decode($value);
+					$sub = $this->post_value_factory
+						->getRepo($attribute->type)
+						->getValueQuery($attribute->id, $value_q->term, $value_q->op);
+				} else {
+					$sub = $this->post_value_factory
+						->getRepo($attribute->type)
+						->getValueQuery($attribute->id, $value, 'LIKE');
+				}
 
 				$query
 					->join([$sub, 'Filter_'.ucfirst($key)], 'INNER')
