@@ -33,15 +33,19 @@ class Ushahidi_Formatter_Collection extends CollectionFormatter
 		$next = URL::site($request->uri() . URL::query($next_params), $request);
 		$prev = URL::site($request->uri() . URL::query($prev_params), $request);
 
-		return [
+		$paging = [
 			'limit'       => $params['limit'],
 			'offset'      => $params['offset'],
-			'order'       => $params['order'],
-			'orderby'     => $params['orderby'],
 			'curr'        => $curr,
 			'next'        => $next,
 			'prev'        => $prev,
 			'total_count' => $this->total
 		];
+
+		if (!empty($params['order'])) $paging['order'] = $params['order'];
+		if (!empty($params['orderby'])) $paging['orderby'] = $params['orderby'];
+		if (!empty($params['v_orderby'])) $paging['v_orderby'] = $params['v_orderby'];
+
+		return $paging;
 	}
 }
