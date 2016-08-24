@@ -26,6 +26,7 @@ class SearchPost extends SearchUsecase
 	protected function getPagingFields()
 	{
 		return [
+			'v_orderby' => null,
 			'orderby' => 'created',
 			'order'   => 'asc',
 			'limit'   => null,

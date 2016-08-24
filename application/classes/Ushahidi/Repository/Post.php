@@ -453,9 +453,16 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			{
 				$attribute = $this->form_attribute_repo->getByKey($key);
 
-				$sub = $this->post_value_factory
-					->getRepo($attribute->type)
-					->getValueQuery($attribute->id, $value);
+				if ( substr($value, 0, 1 ) === "{" ) {
+					$value_q = json_decode($value);
+					$sub = $this->post_value_factory
+						->getRepo($attribute->type)
+						->getValueQuery($attribute->id, $value_q->term, $value_q->op);
+				} else {
+					$sub = $this->post_value_factory
+						->getRepo($attribute->type)
+						->getValueQuery($attribute->id, $value, 'LIKE');
+				}
 
 				$query
 					->join([$sub, 'Filter_'.ucfirst($key)], 'INNER')
@@ -977,5 +984,37 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			->current();
 
 		return $this->getEntity($result);
+	}
+
+	// SearchRepository
+	public function setSearchParams(SearchData $search)
+	{
+		parent::setSearchParams($search);
+
+		$query = $this->search_query;
+		$sorting = $search->getSorting();
+
+		if (!empty($sorting['v_orderby'])) {
+			// Get attribute info for the value
+			$key = $sorting['v_orderby'];
+			$attribute = $this->form_attribute_repo->getByKey($key);
+			$form_attribute_id = $attribute->id;
+
+			// Create join table query for the given attribute
+			$join_table_name = 'Sort_'.ucfirst($key);
+			$sub = $this->post_value_factory
+				->getRepo($attribute->type)
+				->selectQuery(compact('form_attribute_id'));
+
+			// Add join to the main query and order by the values in it
+			$query
+				->join([$sub, $join_table_name], 'INNER')
+				->on('posts.id', '=' , $join_table_name.'.post_id');
+			$this->search_query->order_by(
+				$join_table_name . '.value',
+				Arr::get($sorting, 'order')
+			);
+		}
+
 	}
 }

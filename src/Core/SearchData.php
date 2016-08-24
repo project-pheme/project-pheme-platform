@@ -23,6 +23,7 @@ class SearchData
 	 * @var Array
 	 */
 	protected $sorting = [
+		'v_orderby',
 		'orderby',
 		'order',
 		'limit',
@@ -94,6 +95,12 @@ class SearchData
 	 */
 	public function getSorting($force = false)
 	{
-		return $this->getFilters($this->sorting, $force);
+		$sorting_filters = $this->getFilters($this->sorting, $force);
+
+		if (!empty($sorting_filters['v_orderby']) && !empty($sorting_filters['orderby'])) {
+			$sorting_filters['orderby'] = null;
+		}
+
+		return $sorting_filters;
 	}
 }
