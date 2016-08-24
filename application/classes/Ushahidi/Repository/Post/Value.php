@@ -80,9 +80,9 @@ abstract class Ushahidi_Repository_Post_Value extends Ushahidi_Repository implem
 		if ($match_op == 'LIKE') {
 			return $this->selectQuery(compact('form_attribute_id'))
 				->where('value', 'LIKE', "%$match%");
-		} else if ($match_op == '=') {
+		} else if (in_array($match_op, [ '<', '<=', '=', '>=', '>' ])) {
 			return $this->selectQuery(compact('form_attribute_id'))
-				->where('value', '=', "$match"); 
+				->where('value', $match_op, "$match"); 
 		} else {
 			throw new HTTP_Exception_422("Unknown query match op " + $match_op);
 		}
