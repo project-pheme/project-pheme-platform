@@ -32,3 +32,13 @@ Route::set('pheme-events', $apiBase . 'pheme/events')
 		'controller'=> 'Event',
 		'directory' => 'Api/Pheme'
 	));
+
+/**
+ * Live Search API SubRoute
+ */
+Route::set('pheme-searchlive', $apiBase . 'pheme/search/live')
+	->defaults(array(
+		'action'	=> 'index',
+		'controller'=> 'Searchlive',
+		'directory' => 'Api/Pheme'
+	));
