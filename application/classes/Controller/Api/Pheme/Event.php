@@ -22,6 +22,7 @@ class Controller_Api_Pheme_Event extends Ushahidi_Rest {
 	(
 		Http_Request::GET     => 'get',
 		Http_Request::POST    => 'post',
+		Http_Request::OPTIONS => 'options',
 	);
 
 	protected function _scope()
