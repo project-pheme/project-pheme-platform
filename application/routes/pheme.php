@@ -42,3 +42,16 @@ Route::set('pheme-searchlive', $apiBase . 'pheme/search/live')
 		'controller'=> 'Searchlive',
 		'directory' => 'Api/Pheme'
 	));
+
+/**
+ * Data channels API SubRoute
+ */
+Route::set('pheme-datachannels', $apiBase . 'pheme/datachannels/<id>',
+	array(
+		'id' => '[0-9a-fA-F]+'
+	))
+	->defaults(array(
+		'action'	=> 'index',
+		'controller'=> 'Datachannel',
+		'directory' => 'Api/Pheme'
+	));
