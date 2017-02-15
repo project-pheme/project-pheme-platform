@@ -245,14 +245,20 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 
 		if ($search->q)
 		{
+			// join in the full text table
+			$query->join('posts_fulltext')->on('posts.id', '=', 'posts_fulltext.post_id');
+
 			// search terms are all wrapped as a series of OR conditions
 			$query->and_where_open();
 
-			// searching in title / content
-			$query
-				->where("$table.title", 'LIKE', "%$search->q%")
-				->or_where("$table.content", 'LIKE', "%$search->q%");
-
+			// direct substring matching if query term is less than 4 (non indexable threshold)
+			if (strlen($search->q) < 4) {
+				$query->where('posts_fulltext.fulltext', 'REGEXP', "[[:<:]]$search->q[[:>:]]");
+			} else {
+				// fulltext index matching otherwise
+				$query->where(DB::expr("MATCH(`posts_fulltext`.`fulltext`) AGAINST('$search->q' IN BOOLEAN MODE)"), '', DB::expr(''));
+			}
+				
 			if (is_numeric($search->q)) {
 				// if `q` is numeric, could be searching for a specific id
 				$query->or_where('id', '=', $search->q);

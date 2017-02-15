@@ -46,7 +46,7 @@ Route::set('pheme-searchlive', $apiBase . 'pheme/search/live')
 /**
  * Data channels API SubRoute
  */
-Route::set('pheme-datachannels', $apiBase . 'pheme/datachannels/<id>',
+Route::set('pheme-datachannels', $apiBase . 'pheme/datachannels(/<id>)',
 	array(
 		'id' => '[0-9a-fA-F]+'
 	))
@@ -54,4 +54,18 @@ Route::set('pheme-datachannels', $apiBase . 'pheme/datachannels/<id>',
 		'action'	=> 'index',
 		'controller'=> 'Datachannel',
 		'directory' => 'Api/Pheme'
+	));
+
+
+/**
+ * Theme Fulltext API SubRoute
+ */
+Route::set('pheme-themes-fulltext', $apiBase . 'pheme/themes/fulltext/<id>',
+	array(
+		'id' => '[0-9]+'
+	))
+	->defaults(array(
+		'action'     => 'index',
+		'controller' => 'Fulltext',
+		'directory'  => 'Api/Pheme'
 	));

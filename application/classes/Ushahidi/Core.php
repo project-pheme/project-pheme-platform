@@ -417,6 +417,7 @@ abstract class Ushahidi_Core {
 			]
 		));
 		$di->set('repository.user', $di->lazyNew('Ushahidi_Repository_User'));
+		$di->set('repository.fulltext', $di->lazyNew('Ushahidi_Repository_Fulltext'));
 		$di->set('repository.role', $di->lazyNew('Ushahidi_Repository_Role'));
 		$di->set('repository.notification', $di->lazyNew('Ushahidi_Repository_Notification'));
 		$di->set('repository.csv', $di->lazyNew('Ushahidi_Repository_CSV'));

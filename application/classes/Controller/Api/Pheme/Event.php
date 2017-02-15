@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
 /**
- * Pheme Data Interface Theme Controller
+ * Pheme Data Interface Event Controller
  *
  * @author     Ushahidi Team <team@ushahidi.com>
  * @package    pheme-data-interface\Application\Controllers

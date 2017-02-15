@@ -168,6 +168,7 @@ $di->params['Ushahidi\Factory\RepositoryFactory']['map'] = [
 	'roles'                => $di->lazyGet('repository.role'),
 	'permissions'          => $di->lazyGet('repository.permission'),
 	'posts_export'         => $di->lazyGet('repository.post'),
+	'fulltexts'            => $di->lazyGet('repository.fulltext')
 ];
 
 // Formatters are used for to prepare the output of records. Actions that return
