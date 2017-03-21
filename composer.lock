@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "23b2372c96ac9b69e17e4455bc429a72",
+    "content-hash": "918adac5fa9944db7b3410242ea8946e",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1958,17 +1958,17 @@
             "time": "2016-01-20T17:44:41+00:00"
         },
         {
-            "name": "shadowhand/email",
-            "version": "v2.0.2",
+            "name": "sudheesh001/email",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/shadowhand/email.git",
-                "reference": "e2295fa2ddc23b1b2c206f7716128e51f0557008"
+                "url": "https://github.com/sudheesh001/email.git",
+                "reference": "bb6964e534e08d0244815ad148864e52fce3fab2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shadowhand/email/zipball/e2295fa2ddc23b1b2c206f7716128e51f0557008",
-                "reference": "e2295fa2ddc23b1b2c206f7716128e51f0557008",
+                "url": "https://api.github.com/repos/sudheesh001/email/zipball/bb6964e534e08d0244815ad148864e52fce3fab2",
+                "reference": "bb6964e534e08d0244815ad148864e52fce3fab2",
                 "shasum": ""
             },
             "require": {
@@ -2001,8 +2001,8 @@
                     "role": "creator"
                 }
             ],
-            "description": "Email helper class, uses Swiftmailer",
-            "homepage": "http://github.com/shadowhand/email",
+            "description": "Email helper class, uses Swiftmailer. Copy of the removed Shadowhand/email",
+            "homepage": "http://github.com/sudheesh001/email",
             "keywords": [
                 "email",
                 "helper",
@@ -2012,7 +2012,7 @@
                 "ohanzee",
                 "swiftmailer"
             ],
-            "time": "2014-09-15T15:00:21+00:00"
+            "time": "2017-03-08T05:19:35+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -5055,6 +5055,7 @@
         "beheh/flaps": 20,
         "doctrine/cache": 20,
         "satooshi/php-coveralls": 20,
+        "sudheesh001/email": 20,
         "kohana/unittest": 20,
         "symfony/console": 20,
         "heroku/heroku-buildpack-php": 20
