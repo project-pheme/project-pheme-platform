@@ -1,14 +1,17 @@
 #!/bin/bash
 
+SRC_PATH=${SRC_PATH:-/vols/src}
+OUT_PATH=${OUT_PATH:-/vols/out}
+
 check_vols_src() {
-  if [ ! -d /vols/src ]; then
-    echo "No /vols/src with code"
+  if [ ! -d ${SRC_PATH} ]; then
+    echo "No ${SRC_PATH} with code"
     exit 1
   fi
 }
 check_vols_out() {
-  if [ ! -d /vols/out ]; then
-    echo "No /vols/out for output!"
+  if [ ! -d ${OUT_PATH} ]; then
+    echo "No ${OUT_PATH} for output!"
     exit 1
   fi
 }
@@ -27,7 +30,7 @@ function sync {
     echo "- vendor"
     echo "- tmp"
   } > /tmp/rsync_exclude
-  rsync -ar --exclude-from=/tmp/rsync_exclude --delete-during /vols/src/ ./
+  rsync -ar --exclude-from=/tmp/rsync_exclude --delete-during ${SRC_PATH}/ ./
 }
 
 function run_composer_install {
@@ -37,7 +40,7 @@ function run_composer_install {
 function bundle {
   check_vols_out
   local version=${GITHUB_VERSION:-${CI_BRANCH:-v0.0.0}}
-  DEST_DIR=/vols/out ./bin/release $version
+  DEST_DIR=${OUT_PATH} ./bin/release $version
 }
 
 sync
